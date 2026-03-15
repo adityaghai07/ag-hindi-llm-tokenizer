@@ -4,8 +4,8 @@ Two tokenizers trained on Hindi Wikipedia for use in Hindi and Hindi-English (Hi
 
 
 
-- [ag_hindi_bpe_tokenizer_32k](https://huggingface.co/adityaghai07/ag_hindi_bpe_tokenizer_32k) — BPE with Metaspace, HuggingFace-compatible
-- [ag_hindi_uni_tokenizer_32k](https://huggingface.co/adityaghai07/ag_hindi_uni_tokenizer_32k) — Unigram via SentencePiece
+- [ag_hindi_bpe_tokenizer_32k](https://huggingface.co/adityaghai07/ag_hindi_bpe_tokenizer_32k)   BPE with Metaspace, HuggingFace-compatible
+- [ag_hindi_uni_tokenizer_32k](https://huggingface.co/adityaghai07/ag_hindi_uni_tokenizer_32k)   Unigram via SentencePiece
 
 ---
 
@@ -15,7 +15,7 @@ Two tokenizers trained on Hindi Wikipedia for use in Hindi and Hindi-English (Hi
 
 ___
 
-[NOTE]: There is nothing architecturally novel here. This outcome was expected since the tokenizer was trained only on the Devanagari script. The takeaway is that you do not always need a generalized solution—small, domain-specific approaches can sometimes outperform state-of-the-art systems.
+[NOTE]: There is nothing architecturally novel here. This outcome was expected since the tokenizer was trained only on the Devanagari script. The takeaway is that you do not always need a generalized solution small, domain-specific approaches can sometimes outperform state-of-the-art systems.
 
 ***
 
@@ -65,7 +65,7 @@ Special tokens: `<|pad|>` `<|bos|>` `<|eos|>` `<|unk|>` `<|sep|>` `<|mask|>` `<|
 
 ### Unigram (`ag_hindi_uni_tokenizer_32k`)
 
-Unigram language model trained with SentencePiece. Unlike BPE which greedily merges the most frequent pairs, Unigram starts from a large vocabulary and prunes it by removing tokens that least affect the overall likelihood of the corpus. This produces a probabilistic model where multiple segmentations are possible — useful for subword regularization during training.
+Unigram language model trained with SentencePiece. Unlike BPE which greedily merges the most frequent pairs, Unigram starts from a large vocabulary and prunes it by removing tokens that least affect the overall likelihood of the corpus. This produces a probabilistic model where multiple segmentations are possible   useful for subword regularization during training.
 
 Fertility on Hindi text: ~1.4-2.0 tokens/word.
 
@@ -93,7 +93,7 @@ sp.Load(model_path)
 
 ### Why 32K vocabulary
 
-Hindi has a rich morphology — verbs conjugate heavily and nouns take postpositional suffixes, so a purely word-level vocabulary would be enormous and would still fail on unseen inflections. Character-level is the other extreme and produces very long sequences. 32K sits in a practical middle ground:
+Hindi has a rich morphology   verbs conjugate heavily and nouns take postpositional suffixes, so a purely word-level vocabulary would be enormous and would still fail on unseen inflections. Character-level is the other extreme and produces very long sequences. 32K sits in a practical middle ground:
 
 - Large enough to represent common Hindi words as single tokens (भारत, सरकार, etc.)
 - Small enough that the embedding table stays manageable for a mid-size LM
@@ -102,9 +102,9 @@ Hindi has a rich morphology — verbs conjugate heavily and nouns take postposit
 
 ### How words are broken
 
-The tokenizer operates at the character level, not the byte level. This is a deliberate choice — byte-level BPE (used by GPT-2, LLaMA) encodes each UTF-8 byte as an initial token, so a single Devanagari character (which is 3 bytes in UTF-8) starts as 3 tokens before any merges happen. That creates a heavy tokenization tax on Devanagari text.
+The tokenizer operates at the character level, not the byte level. This is a deliberate choice   byte-level BPE (used by GPT-2, LLaMA) encodes each UTF-8 byte as an initial token, so a single Devanagari character (which is 3 bytes in UTF-8) starts as 3 tokens before any merges happen. That creates a heavy tokenization tax on Devanagari text.
 
-Instead, the initial alphabet here is the set of Unicode characters that appear in the corpus. Each Devanagari character — consonant, vowel, matra, anusvara, virama — is a single starting unit. BPE merges then build up from there.
+Instead, the initial alphabet here is the set of Unicode characters that appear in the corpus. Each Devanagari character   consonant, vowel, matra, anusvara, virama   is a single starting unit. BPE merges then build up from there.
 
 Word boundary handling differs between the two models:
 
