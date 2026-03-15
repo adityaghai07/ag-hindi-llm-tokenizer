@@ -2,8 +2,25 @@
 
 Two tokenizers trained on Hindi Wikipedia for use in Hindi and Hindi-English (Hinglish) language models.
 
-- `ag_hindi_bpe_tokenizer_32k` — BPE with Metaspace, HuggingFace-compatible
-- `ag_hindi_uni_tokenizer_32k` — Unigram via SentencePiece
+
+
+- [ag_hindi_bpe_tokenizer_32k](https://huggingface.co/adityaghai07/ag_hindi_bpe_tokenizer_32k) — BPE with Metaspace, HuggingFace-compatible
+- [ag_hindi_uni_tokenizer_32k](https://huggingface.co/adityaghai07/ag_hindi_uni_tokenizer_32k) — Unigram via SentencePiece
+
+---
+
+## Benchmarks
+
+<img width="2050" height="1012" alt="tokenizer_comparison" src="https://github.com/user-attachments/assets/1164c132-781d-499a-a838-1ffa68394f0a" />
+
+___
+
+[NOTE]: There is nothing architecturally novel here. This outcome was expected since the tokenizer was trained only on the Devanagari script. The takeaway is that you do not always need a generalized solution—small, domain-specific approaches can sometimes outperform state-of-the-art systems.
+
+***
+
+
+
 
 ## Project Structure
 
