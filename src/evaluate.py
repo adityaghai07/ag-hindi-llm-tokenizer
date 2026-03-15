@@ -139,8 +139,8 @@ def print_qualitative_report(tokenizer) -> None:
     print("\n=== Qualitative Token Inspection ===\n")
     report = qualitative_report(tokenizer, test_words)
     for r in report:
-        flag = "⚠" if r["n_tokens"] > 3 else "✓"
-        print(f"{flag} {r['word']!r:20s} → {r['tokens']}  ({r['n_tokens']} tokens)")
+        flag = "WARN" if r["n_tokens"] > 3 else "OK"
+        print(f"[{flag}] {r['word']!r:20s} -> {r['tokens']}  ({r['n_tokens']} tokens)")
 
 
 def run_full_evaluation(tokenizer, test_texts: List[str], tokenizer_name: str = "Hindi BPE") -> Dict:
